@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'jaycode'
 SITENAME = 'Teguh Wijaya'
-SITEURL = ''
+SITEURL = 'http://teguhwijaya.com'
 
 PATH = 'content'
 
@@ -20,10 +20,9 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('Home', 'http://teguhwijaya.com'),
+         ('Data Analysis', 'http://teguhwijaya.com/category/data-analysis'),
+         ('Others', 'http://teguhwijaya.com/category/others'))
 
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),
@@ -36,5 +35,13 @@ DEFAULT_PAGINATION = 10
 
 MARKUP = ('md', 'ipynb')
 
-PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['ipynb.markup']
+PLUGIN_PATHS = ['./plugins', './themes/voce/plugins']
+PLUGINS = ['ipynb.markup', 'pelican-assets', 'assets']
+THEME = "./themes/voce"
+
+GOOGLE_ANALYTICS_ID = 'UA-55135714-1'
+GOOGLE_ANALYTICS_PROP = 'teguhwijaya.com'
+MANGLE_EMAILS = True
+GLOBAL_KEYWORDS = 'Artificial Intelligence, Finance, Algo Trading'
+FUZZY_DATES = True
+USER_LOGO_URL = 'images/1.png'
