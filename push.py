@@ -18,7 +18,7 @@ def github(publish_drafts=False): # 2
     call('git push '
           'git@github.com:jaycode/jaycode.github.io.git '
           'gh-pages:master -f', shell=True) # 5
-    call('rm -rf output', shell=True)  # 6
+    # call('rm -rf output', shell=True)  # 6
 
 
 if __name__ == '__main__':
