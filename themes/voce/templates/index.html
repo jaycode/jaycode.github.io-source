@@ -12,7 +12,11 @@
 				<h1 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
 			</header><!-- .entry-header -->
 			<div class="entry-content">
-				{{ article.summary|striptags }}
+				{% if article.description %}
+				    {{ article.description }}
+				{% else %}
+				    {{ article.summary|striptags }}
+				{% endif %}
         	</div><!-- .entry-content -->
 		</div>
 	</div>

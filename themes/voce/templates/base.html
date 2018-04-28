@@ -5,7 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="{{ AUTHOR }}">
+  {% if article %}
+    {% if article.description %}
+  <meta name="description" content="{{ article.description }}" />
+    {% else %}
+  <meta name="description" content="{{ article.summary|striptags }}" />
+    {% endif %}
+  {% else %}
   <meta name="description" content="{% block description %}Articles by {{ AUTHOR }}{% endblock %}">
+  {% endif %}
 
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">  
@@ -130,10 +138,10 @@
 
       <div class="container">
         
-      <div id="logo">
-        <span class="site-name"><a class="navbar-brand" href="{{ SITEURL }}"><img width="310" src="{{ USER_LOGO_URL }}" class="attachment-full size-full" alt="logo">          </a>
-        </span><!-- end of .site-name -->
-      </div><!-- end of #logo -->
+        <div id="logo">
+          <span class="site-name"><a class="navbar-brand" href="{{ SITEURL }}"><img width="310" src="{{ USER_LOGO_URL }}" class="attachment-full size-full" alt="logo">          </a>
+          </span><!-- end of .site-name -->
+        </div><!-- end of #logo -->
         <div class="tagline">
             {% if TAGS_URL %}
               {% for tag, articles in tags|sort %}

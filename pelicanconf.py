@@ -36,7 +36,7 @@ DEFAULT_PAGINATION = 10
 MARKUP = ('md', 'ipynb')
 
 PLUGIN_PATHS = ['./plugins', './themes/voce/plugins']
-PLUGINS = ['ipynb.markup', 'pelican-assets', 'assets']
+PLUGINS = ['pelican-ipynb.markup', 'pelican-assets', 'assets']
 THEME = "./themes/voce"
 
 GOOGLE_ANALYTICS_ID = 'UA-55135714-1'

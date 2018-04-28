@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="jaycode">
-  <meta name="description" content="Value Analysis: Cenovus Energy Inc. (CVE / NYSE) | /*! * * IPython notebook * */ /* CSS font colors for translated ANSI colors. */ .ansibold {...">
+  <meta name="description" content="A Canadian oil company that got bashed over its acquisition of assets from ConocoPhilips in May 17, 2017. The asset was worth almost $18b while the entire company was worth $15b. Shareholders were enraged over the fact that a part of the deal were purchased by issuing common stocks (thereby diluting shareholder shares in the process). They were also worried about the amount of debt they used to finance this purchase." />
 
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">  
@@ -32,6 +32,9 @@
 <meta property="og:image" content="http://teguhwijaya.com/"/>
 <meta property="og:image:secure_url" content="http://teguhwijaya.com/"/>
 <meta property="og:site_name" content="http://teguhwijaya.com">
+
+<meta property="og:description" content="A Canadian oil company that got bashed over its acquisition of assets from ConocoPhilips in May 17, 2017. The asset was worth almost $18b while the entire company was worth $15b. Shareholders were enraged over the fact that a part of the deal were purchased by issuing common stocks (thereby diluting shareholder shares in the process). They were also worried about the amount of debt they used to finance this purchase." />
+
 <meta property="og:description" content="">
 <meta property="og:url" content="http://http://teguhwijaya.com/articles/value-cve.html">
 <meta property="fb:admins" content=""/>
@@ -1272,14 +1275,14 @@ $( document ).ready(code_toggle);
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Value-Analysis:-Cenovus-Energy-Inc.-(CVE-/-NYSE)">Value Analysis: Cenovus Energy Inc. (CVE / NYSE)<a class="anchor-link" href="#Value-Analysis:-Cenovus-Energy-Inc.-(CVE-/-NYSE)">¶</a></h1><h2 id="Overview">Overview<a class="anchor-link" href="#Overview">¶</a></h2>
-<pre><code>Trading date: {{TRADING_DATE}}
-Price per share: {{SHARE_CURRENCY}} {{fnum1(PRICE_PER_SHARE)}}
-Total shares: {{TOTAL_SHARES}}
-Total purchase: {{SHARE_CURRENCY}} {{fnum(total_purchase)}}
+<pre><code>Trading date: 2018-03-19
+Price per share: USD 8.45
+Total shares: 500
+Total purchase: USD 4,225
 
-Market Cap: {{fnum(MARKET_CAP)}} (in million USD)
+Market Cap: 10,494 (in million USD)
 
-Scaled Net Operating Assets: {{fnum1(snoa)}}</code></pre>
+Scaled Net Operating Assets: 1.14</code></pre>
 <p>Website: <a href="https://www.cenovus.com/">https://www.cenovus.com/</a></p>
 <p>A Canadian oil company that got bashed over its acquisition of assets from ConocoPhilips in May 17, 2017. The asset was worth almost \$18b while the entire company was worth \$15b. Shareholders were enraged over the fact that a part of the deal were purchased by issuing common stocks (thereby <a href="https://www.investopedia.com/articles/stocks/11/dangers-of-stock-dilution.asp">diluting shareholder shares</a> in the process). They were also worried about the amount of debt they used to finance this purchase.</p>
 <p>Relevant news:</p>
@@ -1288,19 +1291,19 @@ Scaled Net Operating Assets: {{fnum1(snoa)}}</code></pre>
 <li><a href="https://www.bnn.ca/commodities/video/cenovus-shareholder-calls-for-board-shakeup-over-conoco-deal~1108707">Cenovus shareholder calls for board shakeup over Conoco deal</a>.</li>
 </ul>
 <h2 id="Fundamental-Data">Fundamental Data<a class="anchor-link" href="#Fundamental-Data">¶</a></h2><p>Fundamental data were gathered from <a href="https://morningstar.com">Morningstar</a>. Screenshots are available in the Appendixes section of this article. In this section, we will get into the details of our analysis and our considerations.</p>
-<p>All prices are in millions {{FIN_CURRENCY}}.</p>
+<p>All prices are in millions CAD.</p>
 <h3 id="P/B-Ratio">P/B Ratio<a class="anchor-link" href="#P/B-Ratio">¶</a></h3><ul>
-<li>Mean Book Value ({{FIRST_YEAR}} - {{LAST_YEAR}}): <strong>{{fnum(book_mean)}}</strong> ({{fnum(book_1)}}, {{fnum(book_2)}}, {{fnum(book_3)}}, {{fnum(book_4)}}, {{fnum(book_last)}})</li>
-<li>P/B Ratio (mean): <strong>{{fnum1(pb_mean)}}</strong></li>
-<li>P/B Ratio ({{LAST_YEAR}}): <strong>{{fnum1(pb_last)}}</strong></li>
+<li>Mean Book Value (2013 - 2017): <strong>12,818</strong> (9,946, 10,186, 12,391, 11,590, 19,981)</li>
+<li>P/B Ratio (mean): <strong>1.05</strong></li>
+<li>P/B Ratio (2017): <strong>0.67</strong></li>
 </ul>
 <p>P/B ratio of the last year was much less than 1.0 which means the assets are likely to cover all common shares. The significant increase between 2016 and 2017 shown an increase in assets as described in 2017 annual report.</p>
 <h3 id="P/E-Ratio">P/E Ratio<a class="anchor-link" href="#P/E-Ratio">¶</a></h3><ul>
-<li>Mean Earnings per Share ({{FIRST_YEAR}} - {{LAST_YEAR}}): <strong>{{fnum1(eps_mean)}}</strong> ({{fnum1(eps_1)}}, {{fnum1(eps_2)}}, {{fnum1(eps_3)}}, {{fnum1(eps_4)}}, {{fnum1(eps_last)}})</li>
-<li>P/E Ratio (mean): <strong>{{fnum1(pe_mean)}}</strong></li>
-<li>P/E Ratio ({{LAST_YEAR}}): <strong>{{fnum1(pe_last)}}</strong></li>
-<li>Price / Operational Earning Ratio (mean): <strong>{{fnum1(poe_mean)}}</strong></li>
-<li>Price / Operational Earning Ratio ({{LAST_YEAR}}): <strong>{{fnum1(poe_last)}}</strong></li>
+<li>Mean Earnings per Share (2013 - 2017): <strong>1.00</strong> (0.87, 0.98, 0.75, -0.65, 3.05)</li>
+<li>P/E Ratio (mean): <strong>10.90</strong></li>
+<li>P/E Ratio (2017): <strong>3.57</strong></li>
+<li>Price / Operational Earning Ratio (mean): <strong>4.21</strong></li>
+<li>Price / Operational Earning Ratio (2017): <strong>3.43</strong></li>
 </ul>
 <p>P/E Ratio was under 15 times, still considered cheap. We also tried using Operational Earnings as denominator with which we hoped to capture a more accurate view of the company's earnings.</p>
 <h3 id="Annual-Report-2017">Annual Report 2017<a class="anchor-link" href="#Annual-Report-2017">¶</a></h3><p>Interesting quotes:</p>
@@ -1326,7 +1329,7 @@ contributed to a more than 40 percent decline in our share price.</p>
 </blockquote>
 <p>Just an interesting note about the change of management.</p>
 <h3 id="Dividends">Dividends<a class="anchor-link" href="#Dividends">¶</a></h3><ul>
-<li>Mean dividends paid ({{FIRST_YEAR}} - {{LAST_YEAR}}): <strong>{{dvd_mean}}</strong> ({{fnum1(dvd_1)}}, {{fnum1(dvd_2)}}, {{fnum1(dvd_3)}}, {{fnum1(dvd_4)}}, {{fnum1(dvd_last)}})</li>
+<li>Mean dividends paid (2013 - 2017): <strong>491.2</strong> (732.00, 732.00, 732.00, 732.00, 225.00)</li>
 </ul>
 <h2 id="Industry-Outlook">Industry Outlook<a class="anchor-link" href="#Industry-Outlook">¶</a></h2><p>One of the risks with this investment is if the world is moving away from oil usage. Some studies:</p>
 <p><a href="https://www.quora.com/Whats-going-to-happen-when-all-the-oil-runs-out">Quora answer</a> by Berkeley professor Richard A Muller (positive. We will stick with oil for some good years ahead):</p>
