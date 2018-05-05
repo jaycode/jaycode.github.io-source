@@ -21,13 +21,11 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Home', 'http://teguhwijaya.com'),
-         ('Data Analysis', 'http://teguhwijaya.com/category/data-analysis'),
-         ('Others', 'http://teguhwijaya.com/category/others'))
+         ('Technical', 'http://teguhwijaya.com/category/technical'),
+         ('Value Analysis', 'http://teguhwijaya.com/category/value-analysis'))
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
-
+SOCIAL = ()
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
