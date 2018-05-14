@@ -6,6 +6,9 @@ AUTHOR = 'jaycode'
 SITENAME = 'TeguhWijaya.com'
 SITEURL = 'http://teguhwijaya.com'
 
+# Todo: Get this feature to work with pelican-ipython.
+STATIC_CHECK_IF_MODIFIED = True
+
 PATH = 'content'
 
 TIMEZONE = 'Asia/Jakarta'

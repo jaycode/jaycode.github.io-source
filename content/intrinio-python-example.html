@@ -11,7 +11,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">http.client</span> <span class="k">import</span> <span class="n">HTTPSConnection</span>
@@ -28,7 +28,9 @@
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;Authorization&#39;</span> <span class="p">:</span> <span class="s1">&#39;Basic </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>  <span class="n">userAndPass</span> <span class="p">}</span>
 
 <span class="c1"># Connect</span>
-<span class="n">c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/companies?ticker=TSLA&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;1950-01-03&#39;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s1">&#39;1950-01-10&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/prices?identifier=$SPX&amp;start_date=</span><span class="si">{}</span><span class="s1">&amp;end_date=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
 <span class="c1"># Read response</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
@@ -45,7 +47,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span>
@@ -61,370 +63,115 @@
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[26]:</div>
+<div class="prompt output_prompt">Out[30]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;business_address&#39;: &#39;3500 DEER CREEK RD, PALO ALTO, CA 94304&#39;,
- &#39;business_phone_no&#39;: &#39;650-681-5000&#39;,
- &#39;ceo&#39;: &#39;Elon Reeve Musk&#39;,
- &#39;cik&#39;: &#39;0001318605&#39;,
- &#39;company_url&#39;: &#39;www.tesla.com&#39;,
- &#39;employees&#39;: 17782,
- &#39;entity_legal_form&#39;: None,
- &#39;entity_status&#39;: None,
- &#39;hq_address1&#39;: &#39;3500 DEER CREEK RD&#39;,
- &#39;hq_address2&#39;: None,
- &#39;hq_address_city&#39;: &#39;PALO ALTO&#39;,
- &#39;hq_address_postal_code&#39;: &#39;94304&#39;,
- &#39;hq_country&#39;: &#39;United States of America&#39;,
- &#39;hq_state&#39;: &#39;California&#39;,
- &#39;inc_country&#39;: &#39;United States of America&#39;,
- &#39;inc_state&#39;: &#39;Delaware&#39;,
- &#39;industry_category&#39;: &#39;Automotive&#39;,
- &#39;industry_group&#39;: &#39;Auto Manufacturers - Major&#39;,
- &#39;latest_filing_date&#39;: &#39;2018-02-23&#39;,
- &#39;legal_name&#39;: &#39;Tesla, Inc.&#39;,
- &#39;lei&#39;: None,
- &#39;long_description&#39;: &#39;Tesla, Inc. designs, develops, manufactures, and sells electric vehicles and energy storage products in the United States, China, Norway, and internationally. The company operates in two segments, Automotive, and Energy Generation and Storage. It primarily offers sedans and sport utility vehicles. The company also provides electric vehicle powertrain components and systems to other manufacturers; and services for electric vehicles through its 135 company-owned service centers and Service Plus locations, as well as through Tesla Ranger mobile technicians. It sells its products through a network of company-owned stores and galleries, as well as through Internet. In addition, the company offers energy storage products, such as rechargeable lithium-ion battery systems for use in homes, commercial facilities, and utility sites. Further, the company designs, manufactures, installs, maintains, leases, and sells solar energy systems to residential and commercial customers through a sales organization that include specialized internal call centers, outside sales force, a channel partner network, and a customer referral program, as well as through selected Tesla stores. Additionally, it sells renewable electricity generated by solar energy systems to customers. The company was formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in February 2017. Tesla, Inc. was founded in 2003 and is headquartered in Palo Alto, California.&#39;,
- &#39;mailing_address&#39;: &#39;3500 DEER CREEK RD, PALO ALTO, CA 94304&#39;,
- &#39;name&#39;: &#39;Tesla Inc&#39;,
- &#39;sector&#39;: &#39;Consumer Goods&#39;,
- &#39;securities&#39;: [{&#39;composite_figi&#39;: &#39;BBG000N9MNX3&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:US&#39;,
-   &#39;currency&#39;: &#39;USD&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XNAS&#39;,
-   &#39;figi&#39;: &#39;BBG000N9P426&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;US&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:UW&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000003531703&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XNAS&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;NASDAQ&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XSTU&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWVK2&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GS&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XSTU&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;STU&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XETR&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWV59&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GY&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XETR&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;XETRA&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XFRA&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWTQ1&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GF&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XFRA&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;FRA&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XBER&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWVW9&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GB&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XBER&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;BER&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XMUN&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWVP7&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GM&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XMUN&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;MUN&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XDUS&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWV04&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GD&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XDUS&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;DUS&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XHAM&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWWH4&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GH&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000010532333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XHAM&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;HAM&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG000WGWT81&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0:GR&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XHAN&#39;,
-   &#39;figi&#39;: &#39;BBG000WGWWF6&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;DE&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0:GI&#39;,
-   &#39;figi_uniqueid&#39;: None,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XHAN&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: None,
-   &#39;stock_exchange&#39;: &#39;HAN&#39;,
-   &#39;ticker&#39;: &#39;TL0&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG00JPR1241&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;0R0X:LN&#39;,
-   &#39;currency&#39;: &#39;USD&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XLON&#39;,
-   &#39;figi&#39;: &#39;BBG00JPR1250&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;GB&#39;,
-   &#39;figi_ticker&#39;: &#39;0R0X:LN&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000061860072&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XLON&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;LSE&#39;,
-   &#39;ticker&#39;: &#39;0R0X&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG007FJP5K5&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:SW&#39;,
-   &#39;currency&#39;: &#39;CHF&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XSWX&#39;,
-   &#39;figi&#39;: &#39;BBG007FJP5M3&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;CH&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:SE&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000038430769&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XSWX&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;(SUSPENDED IN WCA) Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;SIX&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG00JVJ0733&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TL0d:EB&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^BATE&#39;,
-   &#39;figi&#39;: &#39;BBG00JVJ0742&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;EU&#39;,
-   &#39;figi_ticker&#39;: &#39;TL0d:EB&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000062280527&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;BATE&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;BATS EUROPE&#39;,
-   &#39;ticker&#39;: &#39;TL0d&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG00J7BJH80&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:IM&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XMIL&#39;,
-   &#39;figi&#39;: &#39;BBG00J7BJH99&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;IT&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:IM&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000060846425&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: None,
-   &#39;mic&#39;: &#39;XMIL&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;MIL&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG00GQ6S9D8&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:AV&#39;,
-   &#39;currency&#39;: &#39;EUR&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XWBO&#39;,
-   &#39;figi&#39;: &#39;BBG00GQ6S9F6&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;AT&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:AV&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000056838397&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XWBO&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;WBO&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;},
-  {&#39;composite_figi&#39;: None,
-   &#39;composite_figi_ticker&#39;: &#39;US88160R1014:SW&#39;,
-   &#39;currency&#39;: &#39;CHF&#39;,
-   &#39;delisted_security&#39;: True,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XBRN&#39;,
-   &#39;figi&#39;: None,
-   &#39;figi_exch_cntry&#39;: &#39;CH&#39;,
-   &#39;figi_ticker&#39;: &#39;US88160R1014:BW&#39;,
-   &#39;figi_uniqueid&#39;: None,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XBRN&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: None,
-   &#39;stock_exchange&#39;: &#39;BRN&#39;,
-   &#39;ticker&#39;: &#39;US88160R1014&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG0060GVHF2&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:MM&#39;,
-   &#39;currency&#39;: &#39;MXN&#39;,
-   &#39;delisted_security&#39;: False,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XMEX&#39;,
-   &#39;figi&#39;: &#39;BBG0060GVHG1&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;MX&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:MM&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000034258333&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XMEX&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;MEX&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;},
-  {&#39;composite_figi&#39;: &#39;BBG00JGL1J29&#39;,
-   &#39;composite_figi_ticker&#39;: &#39;TSLA:PE&#39;,
-   &#39;currency&#39;: &#39;USD&#39;,
-   &#39;delisted_security&#39;: True,
-   &#39;etf&#39;: False,
-   &#39;exch_symbol&#39;: &#39;^XLIM&#39;,
-   &#39;figi&#39;: &#39;BBG00JGL1J38&#39;,
-   &#39;figi_exch_cntry&#39;: &#39;PE&#39;,
-   &#39;figi_ticker&#39;: &#39;TSLA:PE&#39;,
-   &#39;figi_uniqueid&#39;: &#39;EQ0000000061381747&#39;,
-   &#39;last_crsp_adj_date&#39;: None,
-   &#39;market_sector&#39;: &#39;Equity&#39;,
-   &#39;mic&#39;: &#39;XLIM&#39;,
-   &#39;primary_listing&#39;: True,
-   &#39;security_name&#39;: &#39;Tesla Inc&#39;,
-   &#39;security_type&#39;: &#39;Ordinary Shares&#39;,
-   &#39;share_class_figi&#39;: &#39;BBG001SQKGD7&#39;,
-   &#39;stock_exchange&#39;: &#39;BVL&#39;,
-   &#39;ticker&#39;: &#39;TSLA&#39;}],
- &#39;short_description&#39;: &#39;Tesla, Inc. engages in the designing, development, manufacturing and sale of electric vehicles and electric power train components. Its products include electric vehicles such as the Model S, Model X, Model 3 and the Tesla Roadster. The company also manufactures home batteries and solar roof. Tesla was founded by Jeffrey B. Straubel, Elon Reeve Musk, Martin Eberhard, and Marc Tarpenning on July 1, 2003 and is headquartered in Palo Alto, CA.&#39;,
- &#39;sic&#39;: 3711,
- &#39;standardized_active&#39;: True,
- &#39;stock_exchange&#39;: &#39;NasdaqGS&#39;,
- &#39;template&#39;: &#39;industrial&#39;,
- &#39;ticker&#39;: &#39;TSLA&#39;}</pre>
+<pre>{&#39;api_call_credits&#39;: 1,
+ &#39;current_page&#39;: 1,
+ &#39;data&#39;: [{&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 17.030001,
+   &#39;date&#39;: &#39;1950-01-10&#39;,
+   &#39;high&#39;: 17.030001,
+   &#39;low&#39;: 17.030001,
+   &#39;open&#39;: 17.030001,
+   &#39;volume&#39;: 2160000.0},
+  {&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 17.08,
+   &#39;date&#39;: &#39;1950-01-09&#39;,
+   &#39;high&#39;: 17.08,
+   &#39;low&#39;: 17.08,
+   &#39;open&#39;: 17.08,
+   &#39;volume&#39;: 2520000.0},
+  {&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 16.98,
+   &#39;date&#39;: &#39;1950-01-06&#39;,
+   &#39;high&#39;: 16.98,
+   &#39;low&#39;: 16.98,
+   &#39;open&#39;: 16.98,
+   &#39;volume&#39;: 2010000.0},
+  {&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 16.93,
+   &#39;date&#39;: &#39;1950-01-05&#39;,
+   &#39;high&#39;: 16.93,
+   &#39;low&#39;: 16.93,
+   &#39;open&#39;: 16.93,
+   &#39;volume&#39;: 2550000.0},
+  {&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 16.85,
+   &#39;date&#39;: &#39;1950-01-04&#39;,
+   &#39;high&#39;: 16.85,
+   &#39;low&#39;: 16.85,
+   &#39;open&#39;: 16.85,
+   &#39;volume&#39;: 1890000.0},
+  {&#39;adj_factor&#39;: 1,
+   &#39;close&#39;: 16.66,
+   &#39;date&#39;: &#39;1950-01-03&#39;,
+   &#39;high&#39;: 16.66,
+   &#39;low&#39;: 16.66,
+   &#39;open&#39;: 16.66,
+   &#39;volume&#39;: 1260000.0}],
+ &#39;page_size&#39;: 100,
+ &#39;result_count&#39;: 6,
+ &#39;total_pages&#39;: 1}</pre>
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To download while showing progress bar, the following python code may be used.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">click</span> <span class="k">import</span> <span class="n">progressbar</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">ONE_MEGABYTE</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;1950-01-03&#39;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s1">&#39;1950-01-10&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.intrinio.com/prices?ticker=$SPX&amp;start_date=</span><span class="si">{}</span><span class="s2">&amp;end_date=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;INTRINIO_API_USERNAME&#39;</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;INTRINIO_API_PASSWORD&#39;</span><span class="p">]))</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+<span class="n">total_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;content-length&#39;</span><span class="p">])</span>
+<span class="n">data_b</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">progressbar</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">total_size</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Downloading Intrinio prices&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">ONE_MEGABYTE</span><span class="p">):</span>
+        <span class="n">data_b</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>
+
+<span class="n">data_b</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="s1">&#39;intrinio-data&#39;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data_b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+</div>
 </div>
 </div>
 
