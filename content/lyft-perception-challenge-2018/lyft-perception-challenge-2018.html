@@ -1,0 +1,382 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I participated in a competition organized by Lyft and Udacity in May 2018. Our task was to build a system to extract cars and road from videos recorded from <a href="http://carla.org/">CARLA simulator</a>.</p>
+<p><img src="./example.png" alt="example"></p>
+<p><strong>Left image is a screenshot from the dashcam, and the right image is the ground truth segmentation. We were to take only the cars (blue labeled pixels, except for the dashboard) and roads.</strong></p>
+<p>Participation in this challenge is open to all students in the Self-Driving Car Nanodegree Program. The top 150 competitors (globally) will be eligible for an intensive career preparation seminar with the Udacity Careers Team and the top 25 (with U.S. work authorization) will be eligible for an interview with Lyft.</p>
+<p>I was lucky enough to get into rank 22nd but boy the competition was intense from then on.</p>
+<p><img src="./ranks.png" alt="ranks"></p>
+<p><strong><center>MacDriver, a spin-off of MacGyver!</center></strong></p>
+<p>I used a semantic segmentation algorithm with deep learning system which achieved a car F-score of 0.8321 and road F-score of 0.9856 with FPS of 11.363. To build this algorithm, I used MobileUNet network with 22300 training data, augmented by horizontal flipping, color intensity adjustments, and image rotations.</p>
+<p>The result can be seen in <a href="https://www.youtube.com/watch?v=OuhMW2FnUmE&amp;feature=youtu.be">this video</a>.</p>
+<h2 id="1.-Model-Architecture">1. Model Architecture<a class="anchor-link" href="#1.-Model-Architecture">&#182;</a></h2><p>The base code of the model was shamelessly taken from <a href="https://github.com/GeorgeSeif/Semantic-Segmentation-Suite">this Github repositroy</a>.</p>
+<p>MobileUNet <a href="#ref1">[1]</a> is a variation of MobileNet <a href="#ref2">[2]</a> and UNet <a href="#ref3">[3]</a>. This specific architecture was chosen due to its higher inference speed compared to most semantic segmentation models.</p>
+<p>My implementation uses the following structure:</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Layer</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Input</td>
+<td style="text-align:center">256x256x3 RGB image</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>Downsampling path</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 1</strong></td>
+<td style="text-align:center">Skip connection - add to <strong>Block 8</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center">Max Pooling</td>
+<td style="text-align:center">stride = [2, 2], pool size = [2, 2], padding = VALID</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 2</strong></td>
+<td style="text-align:center">Skip connection - add to <strong>Block 7</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">Max Pooling</td>
+<td style="text-align:center">stride = [2, 2], pool size = [2, 2], padding = VALID</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 3</strong></td>
+<td style="text-align:center">Skip connection - add to <strong>Block 6</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvBlock</td>
+<td style="text-align:center">Number of filters set to 256</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 256</td>
+</tr>
+<tr>
+<td style="text-align:center">Max Pooling</td>
+<td style="text-align:center">stride = [2, 2], pool size = [2, 2], padding = VALID</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 4</strong></td>
+<td style="text-align:center">Skip connection - add to <strong>Block 5</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Max Pooling</td>
+<td style="text-align:center">stride = [2, 2], pool size = [2, 2], padding = VALID</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>Upsampling path</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 5</strong></td>
+<td style="text-align:center">Skip connection - add by <strong>Block 4</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvTransposeBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">Add by <strong>Block 4</strong></td>
+<td style="text-align:center">Arithmetic add</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 6</strong></td>
+<td style="text-align:center">Skip connection - add by <strong>Block 3</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvTransposeBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 512</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 256</td>
+</tr>
+<tr>
+<td style="text-align:center">Add by <strong>Block 4</strong></td>
+<td style="text-align:center">Arithmetic add</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 7</strong></td>
+<td style="text-align:center">Skip connection - add by <strong>Block 2</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvTransposeBlock</td>
+<td style="text-align:center">Number of filters set to 256</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">Add by <strong>Block 4</strong></td>
+<td style="text-align:center">Arithmetic add</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Block 8</strong></td>
+<td style="text-align:center">Skip connection - add by <strong>Block 1</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">ConvTransposeBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 128</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center">Add by <strong>Block 4</strong></td>
+<td style="text-align:center">Arithmetic add</td>
+</tr>
+<tr>
+<td style="text-align:center">ConvTransposeBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center">DSConvBlock</td>
+<td style="text-align:center">Number of filters set to 64</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>Softmax</em></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">filters = 3 (num. of classes), kernel = [1, 1], padding = SAME</td>
+</tr>
+</tbody>
+</table>
+<p>Total number of classes is 3, for <em>Background</em>, <em>Road</em>, and <em>Car</em>.</p>
+<p>Each <strong>ConvBlock</strong> is an operation with the following architecture:</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Layer</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">variable filters, kernel = [1, 1], padding = SAME</td>
+</tr>
+<tr>
+<td style="text-align:center">Fused Batch Normalization</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ReLu Activation</td>
+</tr>
+</tbody>
+</table>
+<p>All <strong>Batch Normalizations</strong> in the architecture are fused to improve their speed.</p>
+<p><strong>DSConvBlock</strong> is short for Depthwise Separable Convolutional Block. Depthwise separable convolutions are used for mobile devices because of their efficient use of parameters. It has the following architecture:</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Layer</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Separable Convolution</td>
+<td style="text-align:center">kernel = [3, 3] depth multiplier = 1, padding = SAME</td>
+</tr>
+<tr>
+<td style="text-align:center">Fused Batch Normalization</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ReLu Activation</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Convolution</td>
+<td style="text-align:center">variable filters, kernel = [1, 1], padding = SAME</td>
+</tr>
+<tr>
+<td style="text-align:center">Fused Batch Normalization</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ReLu Activation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ConvTransposeBlock</strong> is the upsampling operation to decode the activations.</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Layer</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Transpose Convolution</td>
+<td style="text-align:center">variable filters, kernel = [3, 3] stride = [2, 2], padding = SAME</td>
+</tr>
+<tr>
+<td style="text-align:center">Batch Normalization</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ReLu Activation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2.-Training-Data">2. Training Data<a class="anchor-link" href="#2.-Training-Data">&#182;</a></h2><p>In this section, I will describe some preprocessing steps that were done in this project. All data were gathered by recording images from CARLA simulation on 800 x 600 pixels resolution. In addition to 1000 images provided by Lyft, I recorded 72 more runs, each contains 274 screenshots. Total images is then <code>1000 + (72 * 274) = 20728</code> images.</p>
+<h3 id="2.1.-Initial-preprocessing">2.1. Initial preprocessing<a class="anchor-link" href="#2.1.-Initial-preprocessing">&#182;</a></h3><p>These images are resized into 256 x 256 pixels to accommodate the model's input. Segmentation data are processed to only take the road and cars, convert everything else to background (including our car's hood), and reindex the segmentation (0 for background, 1 for road, and 2 for cars). Below are some examples of the training data:</p>
+<p><img src="./data1.png" alt="data1">
+<img src="./data2.png" alt="data2">
+<img src="./data3.png" alt="data3"></p>
+<h3 id="2.2.-Data-Augmentation">2.2. Data Augmentation<a class="anchor-link" href="#2.2.-Data-Augmentation">&#182;</a></h3><p>I augmented the data by running three operations at random to the training data:</p>
+<ol>
+<li>Horizontal flip</li>
+<li>Brightness with gamma between 0.4 to 3.0</li>
+<li>Rotation between -5.0 to +5.0 degrees</li>
+</ol>
+<p>Here are the images on both extremes:</p>
+<p><img src="./aug1.png" alt="aug1">
+<img src="./aug2.png" alt="aug2"></p>
+<p>Brightness randomization is not straightforward since there is a different range between 0.4 to 1.0 (dimmer) and 1.0 to 3.0 (lighter). I initially randomized (with 50% probability) of either dimmer or lighter, then took a value from a uniform distribution from either range. The following graph illustrates the result distribution from 1000 random picks:</p>
+<p><img src="./gamma.png" alt="gamma"></p>
+<h2 id="3.-Training-Configurations">3. Training Configurations<a class="anchor-link" href="#3.-Training-Configurations">&#182;</a></h2><p>The training was set up to run for 54 epochs with the batch size of 1. Loss function used was Cross-Entropy.</p>
+<h2 id="4.-Post-Processing">4. Post Processing<a class="anchor-link" href="#4.-Post-Processing">&#182;</a></h2><p>There are two main post processing steps that were done:</p>
+<ol>
+<li>Since the grader gives more importance to Recall of car segmentation, I dilated the result with a 3x3 kernel.</li>
+<li>Resize the image to the original size of 800 x 600 pixels.</li>
+</ol>
+<p>Here are some example results before and after dilation. Note that these results were taken by running inference on unseen data:</p>
+<p><img src="./final1.png" alt="final1">
+<img src="./final1.png" alt="final2">
+<img src="./final1.png" alt="final3"></p>
+<h2 id="5.-Speed-Optimizations">5. Speed Optimizations<a class="anchor-link" href="#5.-Speed-Optimizations">&#182;</a></h2><p>Some optimizations were made to increase the inference speed:</p>
+<ol>
+<li>I used OpenCV (cv2-python) module to encode images instead of PIL (idea by Phu Nguyen (phmagic)).</li>
+<li>OpenCV was used to read data from video too using <code>cv2.VideoCapture</code> function.</li>
+<li><a href="http://cv-tricks.com/how-to/freeze-tensorflow-models/">Freeze</a> the model and use the frozen model for inference.</li>
+</ol>
+<p>Prior to these optimizations, the inference performance was around 6.3, then increased to around 9.5 after I have done the first and second adjustments, and finally improved to 11.4 after the last adjustment.</p>
+<h2 id="6.-Bloopers-and-Experiments">6. Bloopers and Experiments<a class="anchor-link" href="#6.-Bloopers-and-Experiments">&#182;</a></h2><blockquote><p>The date-like numbers below e.g. <code>2018-05-28-0047</code> are model identifiers.</p>
+</blockquote>
+<h3 id="6.1.-Incorrect-brightness-setting">6.1. Incorrect brightness setting<a class="anchor-link" href="#6.1.-Incorrect-brightness-setting">&#182;</a></h3><p>My initial brightness setting was incorrect. I initially trained with -0.5 to +0.5 brightness which resulted in broken-looking images for negative values:</p>
+<p><img src="./aug3.png" alt="aug3.png"></p>
+<h3 id="6.2.-Do-we-really-need-randomly-rotated-data?">6.2. Do we really need randomly rotated data?<a class="anchor-link" href="#6.2.-Do-we-really-need-randomly-rotated-data?">&#182;</a></h3><p>I compared models with 10 epochs of augmented data without rotation (2018-05-28-0047) vs with
+rotation (2018-05-29-0801).</p>
+<p>Without rotation:</p>
+
+<pre><code>2018-05-28-0047
+Car F score: 0.741 | Car Precision: 0.768 | Car Recall: 0.735 | Road F score: 0.974 |
+Road Precision: 0.974 | Road Recall: 0.975 | Averaged F score: 0.858</code></pre>
+<p>With rotation (5 degrees max):</p>
+
+<pre><code>2018-05-29-0801
+Car F score: 0.786 | Car Precision: 0.730 | Car Recall: 0.802 | Road F score: 0.970 |
+Road Precision: 0.967 | Road Recall: 0.979 | Averaged F score: 0.878</code></pre>
+<p>Looks like we do need rotation augmentation, but only for cars.</p>
+<h3 id="6.3.-Gray,-HSV,-or-RGB?">6.3. Gray, HSV, or RGB?<a class="anchor-link" href="#6.3.-Gray,-HSV,-or-RGB?">&#182;</a></h3><p>I tested three different color channels with the following results. All of them did 5 epochs of similar training data with a batch size of 4, then ran on the same test data:</p>
+<p><strong>Gray</strong></p>
+
+<pre><code>11.111 FPS
+Car F score: 0.696 | Car Precision: 0.794 | Car Recall: 0.675 | Road F score: 0.972 |
+Road Precision: 0.970 | Road Recall: 0.977 | Averaged F score: 0.834</code></pre>
+<p><strong>HSV</strong></p>
+
+<pre><code>10.989 FPS
+Car F score: 0.734 | Car Precision: 0.494 | Car Recall: 0.834 | Road F score: 0.960 |
+Road Precision: 0.957 | Road Recall: 0.972 | Averaged F score: 0.847</code></pre>
+<p><strong>RGB</strong></p>
+
+<pre><code>10.989 FPS
+Car F score: 0.750 | Car Precision: 0.666 | Car Recall: 0.775 | Road F score: 0.965 |
+Road Precision: 0.961 | Road Recall: 0.981 | Averaged F score: 0.858</code></pre>
+<p>Gray channel had the fastest inference rate, HSV had the highest car recall, and RGB had the highest F-score overall. From this experiment, I decided to go with RGB.</p>
+<h3 id="6.4.-Larger-image-inputs?">6.4. Larger image inputs?<a class="anchor-link" href="#6.4.-Larger-image-inputs?">&#182;</a></h3><p>I read from the discussion forum that some people claimed larger inputs would improve the model performance, so I tried it. Here is a result with 2 epochs batch size of 1 training with 512x512 pixels:</p>
+
+<pre><code>3.333 FPS
+Car F score: 0.755 | Car Precision: 0.639 | Car Recall: 0.790 | Road F score: 0.970 |
+Road Precision: 0.969 | Road Recall: 0.977 | Averaged F score: 0.862</code></pre>
+<p>It was indeed better, both in terms of Car and Road F-scores. However, the FPS was too low to compete, so I decided to go with 256x256 pixels. It might be useful for future research to find a way to run inference with higher input size faster.</p>
+<h3 id="6.5.-My-very-first-submission">6.5. My very first submission<a class="anchor-link" href="#6.5.-My-very-first-submission">&#182;</a></h3><p>My very first submission in this challenge was using FC DenseNet 56 Tiramisu with only 1000 images. I did not do any speed improvement mentioned above. I included here for comparison purposes:</p>
+
+<pre><code>2018-05-17-2057
+FC DenseNet 56
+300 epochs
+1.111 FPS
+Car F score: 0.686 | Car Precision: 0.712 | Car Recall: 0.680 | Road F score: 0.977 | 
+Road Precision: 0.977 | Road Recall: 0.979 | Averaged F score: 0.832</code></pre>
+<p>Look at how slow the model was, although its performance was not too bad for a model trained on such a small number of data points. This could potentially be a better model than my final submission.</p>
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ol>
+<li><a id="ref1">[Akira Sosa, MobileUNet code (https://github.com/akirasosa/mobile-semantic-segmentation).](https://github.com/akirasosa/mobile-semantic-segmentation)</a></li>
+<li><a id="ref2">[Andrew G. Howard, Menglong Zhu, Bo Chen, Dmitry Kalenichenko, Weijun Wang, Tobias Weyand, Marco Andreetto, Hartwig Adam, MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications, April 2017.](https://arxiv.org/abs/1704.04861)</a></li>
+<li><a id="ref3">[Olaf Ronneberger, Philipp Fischer, Thomas Brox, Medical Image Computing and Computer-Assisted Intervention (MICCAI), Springer, LNCS, Vol.9351: 234--241, 2015.](https://lmb.informatik.uni-freiburg.de/Publications/2015/RFB15a/)</a></li>
+</ol>
+
+</div>
+</div>
+</div>
+ 
+

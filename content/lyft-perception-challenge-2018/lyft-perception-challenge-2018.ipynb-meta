@@ -1,0 +1,8 @@
+name: lyft-perception-challenge-2018
+Title: Lyft Perception Challenge 2018
+Slug: lyft-perception-challenge-2018
+Date: 2018-06-04
+Category: technical
+Tags: semantic segmentation, lyft
+Author: Jay Teguh Wijaya
+Description: I participated in a competition organized by Lyft and Udacity in May 2018. Our task was to build a system to extract cars and road from videos recorded from CARLA simulator.

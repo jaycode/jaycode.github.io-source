@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = 'jaycode'
+AUTHOR = 'Jay Teguh Wijaya'
 SITENAME = 'TeguhWijaya.com'
-SITEURL = 'http://teguhwijaya.com'
+SITEURL = 'https://teguhwijaya.com'
 
 # Todo: Get this feature to work with pelican-ipython.
 STATIC_CHECK_IF_MODIFIED = True
@@ -23,9 +23,9 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Home', 'http://teguhwijaya.com'),
-         ('Technical', 'http://teguhwijaya.com/category/technical'),
-         ('Value Analysis', 'http://teguhwijaya.com/category/value-analysis'))
+LINKS = (('Home', 'https://teguhwijaya.com'),
+         ('Technical', 'https://teguhwijaya.com/category/technical'),
+         ('Value Analysis', 'https://teguhwijaya.com/category/value-analysis'))
 
 # Social widget
 SOCIAL = ()
